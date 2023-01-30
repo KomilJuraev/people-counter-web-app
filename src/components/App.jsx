@@ -4,7 +4,7 @@ import SaveCount from "./SaveCount";
 import TotalAttendees from "./TotalAttendees";
 import PreviousEntrees from "./PreviousEntrees";
 import ErrorMsg from "./ErrorMsg";
-
+//People Counter App
 function App() {
     const [count, setCount] = useState(0);
     const [previousCount, setPreviousCount] = useState([]);
