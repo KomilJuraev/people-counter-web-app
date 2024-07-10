@@ -1,31 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 function CountDisplay(props) {
+    const [count, setCount] = useState(props.count);
+    const [error, setError] = useState(props.errorMsg);
+
+    useEffect(() => {
+        setCount(props.count);
+        setError(props.errorMsg)
+    }, [props.count]);
+
     function increment() {
-        props.setCount(props.count + 1);
-        if (props.errorMsg !== undefined) {
-            props.setErrorMsg("");
-        }
+        setCount(prevCount => {
+            const newCount = prevCount + 1;
+            props.setCount(newCount);  // Update parent state
+            if (error !== undefined) {
+                setError("");
+                props.setErrorMsg("");
+            }
+            return newCount;
+        });
     }
 
     function decrement() {
-        if (props.count > 0) {
-            props.setCount(props.count - 1);
-        } else {
-            props.setCount(0);
-            props.setErrorMsg("Count Cannot be Under 0");
-        }
+        setCount(prevCount => {
+            let newCount = prevCount;
+            if (prevCount > 0) {
+                newCount = prevCount - 1;
+            } else {
+                setError("Count Cannot be Under 0");
+                props.setErrorMsg("Count Cannot be Under 0");
+            }
+            props.setCount(newCount);  // Update parent state
+            return newCount;
+        });
     }
 
     return (
         <div id="count-div">
-            <button id="decrement-btn" onClick={decrement}><RemoveCircleIcon /></button>
+            <button aria-label="decrement" id="decrement-btn" onClick={decrement}><RemoveCircleIcon /></button>
             <div id="count-txt">
-                <h2 id="count-el">{props.count}</h2>
+                <h2 aria-label="count" id="count-el">{count}</h2>
             </div>
-            <button id="increment-btn" onClick={increment}><AddCircleIcon /></button>
+            <button aria-label="increment" id="increment-btn" onClick={increment}><AddCircleIcon /></button>
         </div>
     );
 }

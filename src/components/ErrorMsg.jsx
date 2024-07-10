@@ -3,7 +3,7 @@ import React from "react";
 function ErrorMsg(props) {
 
     return (
-        <p id="count-zero">{props.message}</p>
+        <p aria-label="error" id="count-zero">{props.message}</p>
     )
 }
 

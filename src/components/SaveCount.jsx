@@ -25,7 +25,7 @@ function SaveCount(props) {
 
     return (
         <div id="btn-div">
-            <button id="save-btn" type="button" class="btn btn-dark" onClick={save}>Save</button>
+            <button id="save-btn" type="button" className="btn btn-dark" onClick={save}>Save</button>
         </div>
     );
 }
